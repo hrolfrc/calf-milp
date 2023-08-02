@@ -1,7 +1,7 @@
 import pytest
 from sklearn.datasets import load_iris
 
-from sppam import SPPAM
+from calf_milp import CalfMilp
 
 
 @pytest.fixture
@@ -9,9 +9,9 @@ def data():
     return load_iris(return_X_y=True)
 
 
-def test_SPPAM(data):
+def test_CalfMilp(data):
     X, y = data
-    clf = SPPAM()
+    clf = CalfMilp()
 
     clf.fit(X, y)
     assert hasattr(clf, 'classes_')

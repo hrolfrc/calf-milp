@@ -1,10 +1,10 @@
 """
 
 ===========================
-SPPAM comparison plot
+CalfMilp comparison plot
 ===========================
 
-A classifier comparison plot including :class:`SPPAM`
+A classifier comparison plot including :class:`CalfMilp`
 """
 import warnings
 
@@ -20,7 +20,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-from sppam import SPPAM
+from calf_milp import CalfMilp
 
 warnings.filterwarnings("ignore")
 
@@ -40,7 +40,7 @@ X = scaler.fit_transform(X)
 # ElasticNetCV and LassoCV are expected to fail using the accuracy metric
 # Here we show the versatility of CalfCV under both accuracy and auc
 models = [
-    ('SPPAM', SPPAM()),
+    ('Calf Milp', CalfMilp()),
     ('EN', ElasticNetCV()),
     ('LCV', LassoCV()),
     ('LR', LogisticRegression()),

@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""The sppam package setup file.
+"""The calf_milp package setup file.
 
 Directions
 
@@ -19,7 +19,7 @@ Directions
 
 4.  Remove the old distribution: rm -r dist
 
-5. cd to sppam and build the new dist folder:
+5. cd to calf_milp and build the new dist folder:
 python setup.py sdist bdist_wheel
 
 Note that setup is deprecated and a replacement method is needed.
@@ -34,17 +34,17 @@ import codecs
 from setuptools import find_packages, setup
 
 # noinspection PyProtectedMember
-from sppam import _version
+from calf_milp import _version
 
-DISTNAME = 'sppam'
+DISTNAME = 'calf_milp'
 DESCRIPTION = 'A classifier that endeavors to solve the saddle point problem for AUC maximization.'
 with codecs.open('README.rst', encoding='utf-8-sig') as f:
     LONG_DESCRIPTION = f.read()
 MAINTAINER = 'Carlson Research, LLC'
 MAINTAINER_EMAIL = 'hrolfrc@gmail.com'
-URL = 'https://github.com/hrolfrc/sppam'
+URL = 'https://github.com/hrolfrc/calf-milp'
 LICENSE = 'new BSD'
-DOWNLOAD_URL = 'https://github.com/hrolfrc/sppam'
+DOWNLOAD_URL = 'https://github.com/hrolfrc/calf-milp'
 VERSION = _version.__version__
 INSTALL_REQUIRES = ['numpy', 'scipy', 'scikit-learn']
 CLASSIFIERS = ['Intended Audience :: Science/Research',

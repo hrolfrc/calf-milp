@@ -2,10 +2,10 @@
 
 |ReadTheDocs|_
 
-.. |ReadTheDocs| image:: https://readthedocs.org/projects/sppam/badge/?version=latest
-.. _ReadTheDocs: https://sppam.readthedocs.io/en/latest/?badge=latest
+.. |ReadTheDocs| image:: https://readthedocs.org/projects/calf-milp/badge/?version=latest
+.. _ReadTheDocs: https://calf-milp.readthedocs.io/en/latest/?badge=latest
 
-SPPAM - Saddle point problem for AUC maximization
+CalfMilp - Saddle point problem for AUC maximization
 ============================================================
 
 An AUC optimizing binomial classifier.
@@ -16,17 +16,17 @@ Rolf Carlson hrolfrc@gmail.com
 
 Install
 ------------------
-Use pip to install sppam.
+Use pip to install calf-milp.
 
-``pip install sppam``
+``pip install calf-milp``
 
 Introduction
 ------------------
 This is a python implementation of a classifier that endeavors to solve the `saddle point problem for AUC maximization`_. [1]
 
-SPPAM provides classification and prediction for two classes, the binomial case.  Small to medium problems are supported.  This is research code and a work in progress.
+CalfMilp provides classification and prediction for two classes, the binomial case.  Small to medium problems are supported.  This is research code and a work in progress.
 
-SPPAM is designed for use with scikit-learn_ pipelines and composite estimators.
+CalfMilp is designed for use with scikit-learn_ pipelines and composite estimators.
 
 .. _scikit-learn: https://scikit-learn.org
 
@@ -37,7 +37,7 @@ Example
 
 .. code:: ipython2
 
-    from sppam import SPPAM
+    from calf-milp import CalfMilp
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
 
@@ -62,7 +62,7 @@ Train the classifier
 
 .. code:: ipython2
 
-    cls = SPPAM().fit(X_train, y_train)
+    cls = CalfMilp().fit(X_train, y_train)
 
 Get the score on unseen data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

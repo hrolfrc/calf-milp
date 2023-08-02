@@ -1,10 +1,10 @@
 """
 
 ======================================
-Compare SPPAM with LogisticRegression
+Compare CalfMilp with LogisticRegression
 ======================================
 
-A comparison of LogisticRegression and :class:`SPPAM`
+A comparison of LogisticRegression and :class:`CalfMilp`
 """
 
 import numpy as np
@@ -15,7 +15,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.preprocessing import StandardScaler
 
-from sppam import SPPAM
+from calf_milp import CalfMilp
 
 logit_auc = []
 logit_acc = []
@@ -37,7 +37,7 @@ for _ in range(20):
     scaler = StandardScaler()
     X_d = scaler.fit_transform(X)
 
-    for desc, clf in [('logit', LogisticRegression(max_iter=10000)), ('SPPAM', SPPAM())]:
+    for desc, clf in [('logit', LogisticRegression(max_iter=10000)), ('CalfMilp', CalfMilp())]:
         lp = clf.fit(X_d, y_d).predict_proba(X_d)
         auc = roc_auc_score(y_true=y_d, y_score=clf.fit(X_d, y_d).predict_proba(X_d)[:, 1])
         acc = accuracy_score(y_true=y_d, y_pred=clf.fit(X_d, y_d).predict(X_d))
@@ -56,13 +56,13 @@ diff = np.subtract(logit_auc, sppam_auc)
 fig, axs = plt.subplots(3, 1, layout='constrained')
 xdata = np.arange(len(logit_acc))  # make an ordinal for this
 axs[0].plot(xdata, logit_auc, label='LogisticRegression')
-axs[0].plot(xdata, sppam_auc, label='SPPAM')
-axs[0].set_title('Comparison of SPPAM and LogisticRegression')
+axs[0].plot(xdata, sppam_auc, label='CalfMilp')
+axs[0].set_title('Comparison of CalfMilp and LogisticRegression')
 axs[0].set_ylabel('AUC')
 axs[0].legend()
 
 axs[1].plot(xdata, logit_acc, label='LogisticRegression')
-axs[1].plot(xdata, sppam_acc, label='SPPAM')
+axs[1].plot(xdata, sppam_acc, label='CalfMilp')
 axs[1].set_ylabel('Accuracy')
 axs[1].legend()
 

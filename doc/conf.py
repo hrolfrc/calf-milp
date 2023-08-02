@@ -77,7 +77,7 @@ plot_gallery = True
 master_doc = 'index'
 
 # General information about the project.
-project = u'sppam'
+project = u'calf_milp'
 copyright = u'2023, Carlson Research, LLC'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -85,7 +85,7 @@ copyright = u'2023, Carlson Research, LLC'
 # built documents.
 #
 # The short X.Y version.
-from sppam import __version__
+from calf_milp import __version__
 
 version = __version__
 # The full version, including alpha/beta/rc tags.
@@ -309,10 +309,10 @@ intersphinx_mapping = {
 
 # sphinx-gallery configuration
 sphinx_gallery_conf = {
-    'doc_module': 'sppam',
+    'doc_module': 'calf_milp',
     'backreferences_dir': os.path.join('generated'),
     'reference_url': {
-        'sppam': None}
+        'calf_milp': None}
 }
 
 

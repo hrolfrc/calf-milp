@@ -10,7 +10,7 @@ Make a classification problem
 
 .. code:: ipython2
 
-    from sppam import SPPAM
+    from calf_milp import CalfMilp
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
     from sklearn.metrics import roc_auc_score
@@ -34,7 +34,7 @@ Train the classifier
 
 .. code:: ipython2
 
-    cls = SPPAM().fit(X_train, y_train)
+    cls = CalfMilp().fit(X_train, y_train)
 
 Get the score on unseen data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
