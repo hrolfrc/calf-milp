@@ -5,10 +5,10 @@
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/calf-milp/badge/?version=latest
 .. _ReadTheDocs: https://calf-milp.readthedocs.io/en/latest/?badge=latest
 
-CalfMilp - Saddle point problem for AUC maximization
-============================================================
+CalfMilp - A classifier with integer weights
+=============================================
 
-An AUC optimizing binomial classifier.
+A binomial classifier that fits using mixed integer linear programming.
 
 Contact
 ------------------
@@ -22,15 +22,11 @@ Use pip to install calf-milp.
 
 Introduction
 ------------------
-This is a python implementation of a classifier that endeavors to solve the `saddle point problem for AUC maximization`_. [1]
-
-CalfMilp provides classification and prediction for two classes, the binomial case.  Small to medium problems are supported.  This is research code and a work in progress.
+CalfMilp provides classification and prediction for two classes, the binomial case.  Small problems are supported.  This is research code and a work in progress.
 
 CalfMilp is designed for use with scikit-learn_ pipelines and composite estimators.
 
 .. _scikit-learn: https://scikit-learn.org
-
-.. _`saddle point problem for AUC maximization`: https://www.frontiersin.org/articles/10.3389/fams.2019.00030/full
 
 Example
 ------------------
@@ -75,9 +71,3 @@ Get the score on unseen data
 .. parsed-literal::
 
     1.0
-
-References
-------------------
-[1] Natole Jr, Michael & Ying, Yiming & Lyu, Siwei. (2019).
-Stochastic AUC Optimization Algorithms With Linear Convergence.
-Frontiers in Applied Mathematics and Statistics. 5. 10.3389/fams.2019.00030.
