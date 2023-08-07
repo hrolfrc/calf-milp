@@ -4,7 +4,8 @@
 Compare CalfMilp with LogisticRegression
 ======================================
 
-A comparison of LogisticRegression and :class:`CalfMilp`
+A comparison of LogisticRegression and :class:`CalfMilp` over 20
+synthetic classification problems
 """
 
 import numpy as np

@@ -1,12 +1,15 @@
 .. -*- mode: rst -*-
 
-|ReadTheDocs|_
+|CircleCI|_ |ReadTheDocs|_
+
+.. |CircleCI| image:: https://circleci.com/gh/hrolfrc/calf-milp.svg?style=shield
+.. _CircleCI: https://circleci.com/gh/hrolfrc/calf-milp
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/calf-milp/badge/?version=latest
 .. _ReadTheDocs: https://calf-milp.readthedocs.io/en/latest/?badge=latest
 
-CalfMilp - A classifier with integer weights
-=============================================
+CalfMilp - Course Approximation Linear Function by Mixed Integer Linear Programming
+======================================================================================
 
 A binomial classifier that fits using mixed integer linear programming.
 
@@ -29,11 +32,11 @@ CalfMilp is designed for use with scikit-learn_ pipelines and composite estimato
 .. _scikit-learn: https://scikit-learn.org
 
 Example
-------------------
+===========
 
 .. code:: ipython2
 
-    from calf-milp import CalfMilp
+    from calf_milp import CalfMilp
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
 
@@ -68,6 +71,10 @@ Get the score on unseen data
     cls.score(X_test, y_test)
 
 
+
+
 .. parsed-literal::
 
-    1.0
+    0.875
+
+

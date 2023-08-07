@@ -61,12 +61,14 @@ plot_info = [('roc_auc', ax1), ('accuracy', ax2)]
 for score, ax in plot_info:
     results = []
     for name, model in models:
-        cv_results = cross_val_score(model, X, y, cv=kfold, scoring=score)
-        results.append(cv_results)
-        msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-        print(msg)
-        ax.boxplot(results)
-        ax.set_ylabel(score)
+        # Lasso and ElasticNet will fail using accuracy
+        try:
+            cv_results = cross_val_score(model, X, y, cv=kfold, scoring=score)
+            results.append(cv_results)
+            ax.boxplot(results)
+            ax.set_ylabel(score)
+        except ValueError:
+            pass
 
 ax2.set(xticks=range(1, len(models) + 1), xticklabels=names)
 fig.set_size_inches(18.5, 10.5)

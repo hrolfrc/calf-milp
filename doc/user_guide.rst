@@ -1,24 +1,24 @@
 .. title:: User guide : contents
 
 .. _user_guide:
-
 User Guide
 ==========
 
 Make a classification problem
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 .. code:: ipython2
 
-    from calf_milp import CalfMilp
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
-    from sklearn.metrics import roc_auc_score
     import numpy as np
+    import pandas as pd
+    from sklearn.metrics import roc_auc_score
+    from calf_milp import CalfMilp
 
 .. code:: ipython2
 
-    seed = 43
+    seed = 45
     X, y = make_classification(
         n_samples=100,
         n_features=5,
@@ -30,14 +30,14 @@ Make a classification problem
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=seed)
 
 Train the classifier
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 .. code:: ipython2
 
     cls = CalfMilp().fit(X_train, y_train)
 
-Get the score on unseen data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Get the score for class prediction on unseen data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: ipython2
 
@@ -48,7 +48,7 @@ Get the score on unseen data
 
 .. parsed-literal::
 
-    0.88
+    0.76
 
 
 
@@ -67,9 +67,9 @@ of class 1 on the bottom. The first five entries are shown.
 
 .. parsed-literal::
 
-    array([[0.  , 1.  , 1.  , 0.  , 0.  ],
-           [0.65, 0.39, 0.3 , 0.96, 0.83],
-           [0.35, 0.61, 0.7 , 0.04, 0.17]])
+    array([[1.  , 1.  , 0.  , 0.  , 0.  ],
+           [0.23, 0.3 , 0.86, 0.47, 0.67],
+           [0.77, 0.7 , 0.14, 0.53, 0.33]])
 
 
 
@@ -82,15 +82,15 @@ of class 1 on the bottom. The first five entries are shown.
 
 .. parsed-literal::
 
-    0.9544159544159544
+    0.9630156472261735
 
 
 
 Predict the classes
 ^^^^^^^^^^^^^^^^^^^
 
-The ground truth is on the top and the predicted class is on the bottom.
-The first column is the index. The first five entries are shown.
+The ground truth is on the top and the predicted classes are on the
+bottom. The first five entries are shown.
 
 .. code:: ipython2
 
@@ -102,8 +102,8 @@ The first column is the index. The first five entries are shown.
 
 .. parsed-literal::
 
-    array([[1, 0, 0, 0, 1],
-           [1, 0, 0, 0, 1]])
+    array([[0, 0, 0, 1, 0],
+           [0, 0, 0, 1, 1]])
 
 
 
@@ -118,6 +118,6 @@ The class prediction is expected to be lower than the auc prediction.
 
 .. parsed-literal::
 
-    0.8733766233766235
+    0.7532051282051281
 
 

@@ -9,11 +9,6 @@ boundaries formed by CalfMilp on several data challenges.
 
 .. _compare: https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html
 
-The example plot of :class:`CalfMilp` shows that while
-nearest neighbors does better than SLP on all three data sets, SLP is
-competitive with linear SVM on the moons and circles data sets.  The decision boundaries
-for CalfMilp look similar to linear SVM.
-
 """
 
 import matplotlib.pyplot as plt

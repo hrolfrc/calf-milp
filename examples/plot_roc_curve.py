@@ -4,9 +4,8 @@ Plot the ROC curve
 =============================
 
 An example plot of the Receiver Operating Characteristic (ROC)
-curve for SLP :class:`CalfMilp`
-on the breast cancer dataset.  We want an area under the
-curve (AUC) that is near 1.
+curve for :class:`CalfMilp` on the breast cancer dataset.
+We want an area under the curve (AUC) that is near 1.
 
 """
 import matplotlib.pyplot as plt
@@ -25,8 +24,7 @@ RocCurveDisplay.from_predictions(
     y_test,
     y_score[:, 1],
     name="Has breast cancer",
-    color="darkorange",
-    plot_chance_level=True
+    color="darkorange"
 )
 
 plt.axis("square")

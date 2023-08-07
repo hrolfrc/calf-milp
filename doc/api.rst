@@ -2,7 +2,7 @@
 CalfMilp API
 ####################
 
-The CalfMilp (Saddle Point Problem for AUC Maximization) API
+The CalfMilp (Course Approximation Linear Function by Mixed Integer Linear Programming) API
 
 .. currentmodule:: calf_milp
 

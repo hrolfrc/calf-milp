@@ -1,9 +1,8 @@
-version: 2
-
+version: 2.1
 jobs:
-  build:
+  build_test:
     docker:
-      - image: circleci/python:3.6.1
+      - image: cimg/python:3.11.0
     working_directory: ~/repo
     steps:
       - checkout
@@ -16,23 +15,27 @@ jobs:
             conda update --yes --quiet conda
             conda create -n testenv --yes --quiet python=3
             source activate testenv
-            conda install --yes pip numpy scipy scikit-learn matplotlib sphinx sphinx_rtd_theme numpydoc pillow
+            conda install --yes pip numpy pandas scipy scikit-learn matplotlib sphinx sphinx_rtd_theme numpydoc pillow
             pip install sphinx-gallery
             pip install .
             cd doc
             make html
+            cd ..
+            python3 setup.py sdist bdist_wheel
+            sudo add-apt-repository universe -y
+            sudo apt-get update
+            sudo apt install -y python3-pip
+            sudo pip install pipenv
+            pipenv install twine
+            pipenv run twine upload dist/*
       - store_artifacts:
           path: doc/_build/html/
           destination: doc
       - store_artifacts:
           path: ~/log.txt
       - run: ls -ltrh doc/_build/html
-    filters:
-      branches:
-        ignore: gh-pages
-
 workflows:
   version: 2
   workflow:
     jobs:
-      - build
+      - build_test
