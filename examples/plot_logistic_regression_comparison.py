@@ -50,7 +50,6 @@ for _ in range(20):
         acc = accuracy_score(y_true=y_d, y_pred=clf.fit(X_d, y_d).predict(X_d))
         score[desc]['AUC'].append(auc)
         score[desc]['Accuracy'].append(acc)
-        print('finished')
 
 # compare the mean of the differences of auc
 diff = np.subtract(score['Logit']['AUC'], score['CalfMilp']['AUC'])
