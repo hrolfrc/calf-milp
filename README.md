@@ -40,6 +40,6 @@ cls.score(X_test, y_test)
 
 
 
-    0.875
+    1.0
 
 

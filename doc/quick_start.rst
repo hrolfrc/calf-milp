@@ -48,6 +48,9 @@ Get the score on unseen data
 
 .. parsed-literal::
 
-    0.875
+    1.0
+
+
+
 
 

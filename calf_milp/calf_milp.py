@@ -22,15 +22,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import minmax_scale
 from sklearn.utils.multiclass import unique_labels
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
-
-
-def scaled_predict(X, w):
-    return np.array(
-        minmax_scale(
-            predict(X, w),
-            feature_range=(-1, 1)
-        )
-    )
+from collections import Counter
 
 
 def predict(X, w):
@@ -115,22 +107,22 @@ def sat_weights(X, y, complexity='high', verbose=False):
         <BLANKLINE>
         w[0]  =  -1.0
         w[1]  =  -1.0
-        w[2]  =  1.0
+        w[2]  =  0.0
         w[3]  =  0.0
-        w[4]  =  -1.0
-        w[5]  =  -1.0
-        w[6]  =  -1.0
+        w[4]  =  0.0
+        w[5]  =  1.0
+        w[6]  =  0.0
         w[7]  =  -1.0
         w[8]  =  -1.0
         w[9]  =  -1.0
 
         >>> w_d
-        [-1.0, -1.0, 1.0, 0.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
+        [-1.0, -1.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.0, -1.0, -1.0]
 
         The SAT solver with high complexity identifies better initial weights.
         >>> auc = roc_auc_score(y_true=y_d, y_score=predict(X_d, w_d))
         >>> np.round(auc, 2)
-        0.95
+        0.99
 
     """
 
@@ -144,30 +136,18 @@ def sat_weights(X, y, complexity='high', verbose=False):
     if not solver:
         raise RuntimeError("SAT solver unavailable")
 
-    # weights on a hypercube vertex
-    # weights in [-10, 10] give slightly better auc
-    # weights in [-100, 100] hang without improved auc.
+
+    # n_plus and n_minus are the numbers of samples of the positive and negative cases.
+    # protect against division by zero.
+    n_plus = max(Counter(y)[1], 1)
+    n_minus = max(Counter(y)[0], 1)
+
     w = {}
     for i in feature_range:
         w[i] = solver.IntVar(-1, 1, 'w[%i]' % i)
 
-    # The positive and negative cases
-    # "AUC is concerned with ranking, more specifically the
-    # probability that a randomly-chosen positive sample is
-    # ranked higher than a randomly-chosen negative sample."
-    # see https://stats.stackexchange.com/a/423137/346527
-    #
-    # We can represent the idea that the positive samples
-    # will be ranked higher than the negative samples
-    # through a sum of the positive samples required to be
-    # greater than the sum of the negative samples.
-    # sum_pos sums over the true positive and false positive cases
-    # while sum_neg sums over the true negative and false negative cases
-    pos = sum([X[i][j] * w[j] for j in feature_range for i in sample_range if y[i] == 1])
-    neg = sum([X[i][j] * w[j] for j in feature_range for i in sample_range if y[i] == 0])
-
-    # encourage zero
-    w_non_zero = sum([1 for i in feature_range if not w[i] == 0])
+    pos = (1 / n_plus) * sum([X[i][j] * w[j] for j in feature_range for i in sample_range if y[i] == 1])
+    neg = (1 / n_minus) * sum([X[i][j] * w[j] for j in feature_range for i in sample_range if y[i] == 0])
 
     # we expect that the sum over the positive cases will be larger than over the negative
     solver.Add(pos >= neg)
@@ -181,17 +161,12 @@ def sat_weights(X, y, complexity='high', verbose=False):
             p[i] = solver.NumVar(0, solver.infinity(), 'p[%i]' % i)
             constraint_expr = sum([X[i][j] * w[j] for j in feature_range])
             if y[i] == 1:
-                solver.Add(constraint_expr + p[i] >= 0)
+                solver.Add(constraint_expr + p[i] >= 1)
             else:
-                solver.Add(constraint_expr - p[i] <= 0)
+                solver.Add(constraint_expr - p[i] <= -1)
         row_slack = sum([p[i] for i in sample_range])
 
-        # Maximize the difference between the positive and negative cases
-        # Minimizing the sum of the coefficient vector is a way to
-        # include regularization of the weights, like LASSO.
-        # Minimizing the weight sum does not seem to improve AUC.
-        # https://scikit-learn.org/stable/modules/linear_model.html#:~:text=The%20lasso%20estimate,the%20coefficient%20vector.
-        solver.Maximize(pos - neg - w_non_zero - row_slack)
+        solver.Maximize(pos - neg - row_slack)
     else:
         solver.Maximize(pos - neg)
 

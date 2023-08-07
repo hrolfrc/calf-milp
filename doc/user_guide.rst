@@ -49,7 +49,7 @@ Get the score for class prediction on unseen data
 
 .. parsed-literal::
 
-    0.76
+    0.92
 
 
 
@@ -69,8 +69,8 @@ of class 1 on the bottom. The first five entries are shown.
 .. parsed-literal::
 
     array([[1.  , 1.  , 0.  , 0.  , 0.  ],
-           [0.23, 0.3 , 0.86, 0.47, 0.67],
-           [0.77, 0.7 , 0.14, 0.53, 0.33]])
+           [0.23, 0.45, 1.  , 0.78, 0.75],
+           [0.77, 0.55, 0.  , 0.22, 0.25]])
 
 
 
@@ -83,7 +83,7 @@ of class 1 on the bottom. The first five entries are shown.
 
 .. parsed-literal::
 
-    0.9630156472261735
+    0.9751066856330014
 
 
 
@@ -104,7 +104,7 @@ bottom. The first five entries are shown.
 .. parsed-literal::
 
     array([[0, 0, 0, 1, 0],
-           [0, 0, 0, 1, 1]])
+           [0, 0, 0, 1, 0]])
 
 
 
@@ -119,6 +119,6 @@ The class prediction is expected to be lower than the auc prediction.
 
 .. parsed-literal::
 
-    0.7532051282051281
+    0.9198717948717948
 
 
