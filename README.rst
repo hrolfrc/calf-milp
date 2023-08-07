@@ -8,10 +8,10 @@
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/calf-milp/badge/?version=latest
 .. _ReadTheDocs: https://calf-milp.readthedocs.io/en/latest/?badge=latest
 
-CalfMilp - Course Approximation Linear Function by Mixed Integer Linear Programming
-======================================================================================
+CalfMilp
+===========
 
-A binomial classifier that fits using mixed integer linear programming.
+CalfMilp is a binomial classifier that implements a course approximation linear function by mixed integer linear programming.
 
 Contact
 ------------------
