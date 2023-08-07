@@ -17,12 +17,10 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.preprocessing import StandardScaler
 
 from calf_milp import CalfMilp
-from calfcv import Calf
 
 methods = [
     ('Logit', LogisticRegressionCV()),
-    ('CalfMilp', CalfMilp()),
-    ('Calf', Calf()),
+    ('CalfMilp', CalfMilp())
 ]
 
 score = {}
@@ -63,7 +61,6 @@ fig, axs = plt.subplots(3, 1, layout='constrained')
 xdata = np.arange(len(score['Logit']['AUC']))
 axs[0].plot(xdata, score['Logit']['AUC'], label='LogisticRegressionCV')
 axs[0].plot(xdata, score['CalfMilp']['AUC'], label='CalfMilp')
-axs[0].plot(xdata, score['Calf']['AUC'], label='Calf')
 
 axs[0].set_title('Comparison of Calf and LogisticRegressionCV')
 axs[0].set_ylabel('AUC')
@@ -71,7 +68,6 @@ axs[0].legend()
 
 axs[1].plot(xdata, score['Logit']['Accuracy'], label='LogisticRegressionCV')
 axs[1].plot(xdata, score['CalfMilp']['Accuracy'], label='CalfMilp')
-axs[1].plot(xdata, score['Calf']['Accuracy'], label='Calf')
 axs[1].set_ylabel('Accuracy')
 axs[1].legend()
 
