@@ -72,7 +72,6 @@ for score, ax in plot_info:
             ax.set_ylabel(score)
         except ValueError:
             pass
-        print('finished')
 
 ax2.set(xticks=range(1, len(models) + 1), xticklabels=names)
 fig.set_size_inches(18.5, 10.5)

@@ -299,8 +299,8 @@ class CalfMilp(ClassifierMixin, BaseEstimator):
         start = time.time()
         self.w_, self.status_ = sat_weights(X, y)
         self.fit_time_ = time.time() - start
-        self.is_fitted_ = True
         self.coef_ = self.w_
+        self.is_fitted_ = True
         return self
 
     def decision_function(self, X):
@@ -363,7 +363,7 @@ class CalfMilp(ClassifierMixin, BaseEstimator):
                 Returns the probability of the sample for each class in the model,
                 where classes are ordered as they are in `self.classes_`.
 
-            """
+        """
         check_is_fitted(self, ['is_fitted_', 'X_', 'y_'])
         X = check_array(X)
 
