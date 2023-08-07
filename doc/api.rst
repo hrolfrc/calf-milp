@@ -2,7 +2,7 @@
 CalfMilp API
 ####################
 
-The CalfMilp (Course Approximation Linear Function by Mixed Integer Linear Programming) API
+The CalfMilp Classifier
 
 .. currentmodule:: calf_milp
 
