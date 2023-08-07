@@ -135,7 +135,7 @@ def sat_weights(X, y, complexity='high', verbose=False):
     solver = pywraplp.Solver.CreateSolver('SAT')
     if not solver:
         raise RuntimeError("SAT solver unavailable")
-
+    solver.SetTimeLimit(1000)
 
     # n_plus and n_minus are the numbers of samples of the positive and negative cases.
     # protect against division by zero.
@@ -171,35 +171,41 @@ def sat_weights(X, y, complexity='high', verbose=False):
         solver.Maximize(pos - neg)
 
     # solve the classification problem
-    status = solver.Solve()
+    try:
+        status = solver.Solve()
+    except Exception:
+        result = {}
+        weights = [0] * len(w)
+        pass
+    else:
+        # save execution status
+        result = {
+            'num_variables': solver.NumVariables(),
+            'solver_version': solver.SolverVersion(),
+            'solver_status': pywraplp.Solver.OPTIMAL,
+            'objective_value': solver.Objective().Value(),
+            'solver_wall_time': solver.wall_time(),
+            'solver_iterations': solver.iterations(),
+            'solver_nodes': solver.nodes()
+        }
 
-    # save execution status
-    result = {
-        'num_variables': solver.NumVariables(),
-        'solver_version': solver.SolverVersion(),
-        'solver_status': pywraplp.Solver.OPTIMAL,
-        'objective_value': solver.Objective().Value(),
-        'solver_wall_time': solver.wall_time(),
-        'solver_iterations': solver.iterations(),
-        'solver_nodes': solver.nodes()
-    }
+        # print execution status as requested
+        if verbose:
+            print('Number of variables =', solver.NumVariables())
+            print(f'Solving with {solver.SolverVersion()}')
+            if status == pywraplp.Solver.OPTIMAL:
+                print('Objective value =', solver.Objective().Value())
+                print('Problem solved in %f milliseconds' % solver.wall_time())
+                print('Problem solved in %d iterations' % solver.iterations())
+                print('Problem solved in %d branch-and-bound nodes' % solver.nodes())
+                print()
+                for i in range(len(w)):
+                    print(w[i].name(), ' = ', w[i].solution_value())
+            else:
+                print('The problem does not have an optimal solution.')
 
-    # print execution status as requested
-    if verbose:
-        print('Number of variables =', solver.NumVariables())
-        print(f'Solving with {solver.SolverVersion()}')
-        if status == pywraplp.Solver.OPTIMAL:
-            print('Objective value =', solver.Objective().Value())
-            print('Problem solved in %f milliseconds' % solver.wall_time())
-            print('Problem solved in %d iterations' % solver.iterations())
-            print('Problem solved in %d branch-and-bound nodes' % solver.nodes())
-            print()
-            for i in range(len(w)):
-                print(w[i].name(), ' = ', w[i].solution_value())
-        else:
-            print('The problem does not have an optimal solution.')
+        weights = [v.solution_value() for v in w.values()]
 
-    weights = [v.solution_value() for v in w.values()]
     return weights, result
 
 

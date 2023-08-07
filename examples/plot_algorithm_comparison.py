@@ -4,7 +4,10 @@
 CalfMilp comparison plot
 ===========================
 
-A classifier comparison plot including :class:`CalfMilp`
+A classifier comparison plot including :class:`CalfMilp`.
+:class:`CalfMilp` can sometimes outperform LassoCV and ElasticNetCV on
+small problems as measured by AUC.
+
 """
 import warnings
 
@@ -41,7 +44,7 @@ X = scaler.fit_transform(X)
 # Here we show the versatility of CalfCV under both accuracy and auc
 models = [
     ('Calf Milp', CalfMilp()),
-    ('EN', ElasticNetCV()),
+    ('ENCV', ElasticNetCV()),
     ('LCV', LassoCV()),
     ('LR', LogisticRegression()),
     ('LDA', LinearDiscriminantAnalysis()),
@@ -69,6 +72,7 @@ for score, ax in plot_info:
             ax.set_ylabel(score)
         except ValueError:
             pass
+        print('finished')
 
 ax2.set(xticks=range(1, len(models) + 1), xticklabels=names)
 fig.set_size_inches(18.5, 10.5)
