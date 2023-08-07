@@ -1,8 +1,8 @@
 """
 
-======================================
+=========================================
 Compare CalfMilp with LogisticRegression
-======================================
+=========================================
 
 A comparison of LogisticRegression and :class:`CalfMilp` over 20
 synthetic classification problems
