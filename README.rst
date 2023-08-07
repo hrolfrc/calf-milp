@@ -9,7 +9,7 @@
 .. _ReadTheDocs: https://calf-milp.readthedocs.io/en/latest/?badge=latest
 
 CalfMilp
-===========
+#####################################
 
 CalfMilp is a binomial classifier that implements a course approximation linear function by mixed integer linear programming.
 
@@ -41,7 +41,7 @@ Example
     from sklearn.model_selection import train_test_split
 
 Make a classification problem
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: ipython2
 
