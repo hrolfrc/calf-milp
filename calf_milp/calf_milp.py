@@ -401,6 +401,7 @@ class CalfMilp(ClassifierMixin, BaseEstimator):
                     The training input features and samples
 
                 y : array-like of shape (n_samples,)
+                    Target vector relative to X.
 
             Returns:
                 X_r : array of shape [n_samples, n_selected_features]
