@@ -1,6 +1,12 @@
 """
 The CalfMilp classifier.
 
+===============================================================
+Author: Rolf Carlson, Carlson Research, LLC <hrolfrc@gmail.com>
+License: 3-clause BSD
+===============================================================
+
+
 Mixed integer-linear program for classification.  CalfMilp is
 based on the idea from Calf that the weights are restricted to
 vertices on a hypercube, or zero. [1]
