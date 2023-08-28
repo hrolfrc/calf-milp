@@ -1,4 +1,24 @@
 version: 2.1
+
+workflows:
+  my-workflow:
+    jobs:
+      - build_test:
+          context:
+            # the twine context makes the twine username and password
+            # available to all projects
+            - twine
+
+orbs:
+  # for use of the python orb, see:
+  # https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@2.1.1
+  # for use of the codecov orb, see:
+  # https://circleci.com/developer/orbs/orb/codecov/codecov
+  # Code coverage is also saved as build artifacts
+  # https://circleci.com/docs/code-coverage/
+  codecov: codecov/codecov@3.2.5
+
 jobs:
   build_test:
     docker:
@@ -15,8 +35,8 @@ jobs:
             conda update --yes --quiet conda
             conda create -n testenv --yes --quiet python=3
             source activate testenv
-            conda install --yes pip numpy pandas scipy scikit-learn matplotlib sphinx sphinx_rtd_theme numpydoc pillow
-            pip install sphinx-gallery ortools
+            conda install --yes pip numpy pandas scipy scikit-learn matplotlib sphinx sphinx_rtd_theme numpydoc pillow pandoc
+            pip install sphinx-gallery nbsphinx ortools
             pip install .
             cd doc
             make html
@@ -34,8 +54,6 @@ jobs:
       - store_artifacts:
           path: ~/log.txt
       - run: ls -ltrh doc/_build/html
-workflows:
-  version: 2
-  workflow:
-    jobs:
-      - build_test
+      # See the codecov guide:
+      # https://circleci.com/developer/orbs/orb/codecov/codecov
+      - codecov/upload
